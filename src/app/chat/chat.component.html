@@ -1,0 +1,165 @@
+<header id="header" class="fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center">
+    
+    <a href="index.html" class="logo me-auto"><img src="../../assets/logo.png" alt=""></a>
+
+    <nav id="navbar" class="navbar order-last order-lg-0">
+      <ul>
+        <li><a class="nav-link scrollto" href=""  routerLink="/home">Home</a></li>
+        <li><a class="nav-link scrollto" href="" routerLink="/aboutus">Media Library</a></li>
+        <li><a class="nav-link scrollto" href="" routerLink="/agenda">Agenda</a></li>
+        <li><a class="nav-link scrollto active" href="" routerLink="/chat">Chat</a></li>
+        <li class="dropdown"><a href=""><span>My Space</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a href="" routerLink="/mymedia">My Media Library</a></li>
+            <li><a href="" routerLink="/profile">My Profile</a></li>
+            <li><a href="" routerLink="/login">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list mobile-nav-toggle" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+      <!-- <i class="bi bi-list mobile-nav-toggle"></i> -->
+    </nav><!-- .navbar -->
+
+  </div>
+</header>
+
+<div class="containBody">
+
+  <div class="d-md-flex align-items-center justify-content-between pb-3">
+    <div class="content mb-md-0 mb-5">
+      <p class="h2">Chat List</p>
+      <p class="line"></p>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Private Chat</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body text-center">
+
+              <div class="row d-flex justify-content-center" style="overflow-y: auto;">
+                <div class="col-md-8 ">
+
+                  <div *ngFor="let message of messageList" class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
+
+                    <div *ngIf="otherInfo.user_id === message.senderid">
+                      <div class="d-flex justify-content-between">
+                        <p class="small mb-1">{{otherInfo.firstname}}</p>
+                        <p class="small mb-1 text-muted">23 Jan 2:00 pm</p>
+                      </div>
+                      <div class="d-flex flex-row justify-content-start">
+                        <img src={{otherInfo.profile_pic}} alt="avatar 1" style="width: 45px; height: 100%;">
+                        <div>
+                          <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">{{message.message}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="myInfo.user_id === message.senderid">
+                      <div class="d-flex justify-content-between">
+                        <p class="small mb-1 text-muted">23 Jan 2:05 pm</p>
+                        <p class="small mb-1">{{myInfo.firstname}}</p>
+                      </div>
+                      <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                        <div>
+                          <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">{{message.message}}</p>
+                        </div>
+                        <img src={{myInfo.profile_pic}} alt="avatar 1" style="width: 45px; height: 100%;">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+                  </div>
+
+                </div>
+              </div>
+
+              <form [formGroup]="loginForm" (ngSubmit)="loginProjet()">
+                <div class="input-group mb-3">
+                  <input type="text" formControlName="message" class="form-control" placeholder="Message">
+                </div>
+                <button class="btn btn-primary shadow-2 mb-4" type="submit" data-toggle="">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- The Modal End-->
+
+  <div class="md:flex">
+    <div class="w-full p-4">
+      <div class="relative"> <input type="text" class="w-full h-12 rounded focus:outline-none px-3 focus:shadow-md" placeholder="Search..."> <i class="fa fa-search absolute right-3 top-4 text-gray-300"></i> </div>
+      <ul *ngFor="let user of userList">
+
+        <li *ngIf="user.user_id != user_id" (click)="getChat(user.user_id)" data-bs-toggle="modal" data-bs-target="#myModal" class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+          <div class="flex ml-2"> <img src={{user.profile_pic}} width="40" height="40" class="rounded-full">
+            <div class="flex flex-col ml-2"> <span class="font-medium text-black">{{user.firstname}} {{user.secondname}}</span> <span class="text-sm text-gray-400 truncate w-32">Hey, Joel, I here to help you out please tell me</span> </div>
+          </div>
+          <div class="flex flex-col items-center"> <span class="text-gray-300">11:26</span> <i class="fa fa-star text-green-400"></i> </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<footer id="footer">
+
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 footer-contact">
+          <h3>DIVCOM<span>.</span></h3>
+          <p>
+            <strong>Phone:</strong> +237 000 000 000<br>
+            <strong>Email:</strong> info@example.com<br>
+          </p>
+        </div>
+
+        <div class="col-lg-4 col-md-6 footer-newsletter">
+          <h4>Join Our Newsletter</h4>
+          <form action="" method="post">
+            <input type="email" name="email"><input type="submit" value="Subscribe">
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container d-md-flex py-4">
+
+    <div class="me-md-auto text-center text-md-start">
+      <div class="copyright">
+        &copy; Copyright <strong><span>2022 MINDEF</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </div>
+</footer>

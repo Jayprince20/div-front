@@ -1,0 +1,120 @@
+<header id="header" class="fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center">
+    
+    <a href="index.html" class="logo me-auto"><img src="../../assets/logo.png" alt=""></a>
+
+    <nav id="navbar" class="navbar order-last order-lg-0">
+      <ul>
+        <li><a class="nav-link scrollto " href="" routerLink="/home">Home</a></li>
+        <li><a class="nav-link scrollto" href="" routerLink="/aboutus">Media Library</a></li>
+        <li><a class="nav-link scrollto" href="" routerLink="/agenda">Agenda</a></li>
+        <li><a class="nav-link scrollto " href="" routerLink="/chat">Chat</a></li>
+        <li class="dropdown"><a href=""><span>My Space</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a href="" routerLink="/mymedia">My Media Library</a></li>
+            <li><a class="active" href="" routerLink="/profile">My Profile</a></li>
+            <li><a href="" routerLink="/login">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list mobile-nav-toggle" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+      <!-- <i class="bi bi-list mobile-nav-toggle"></i> -->
+    </nav><!-- .navbar -->
+
+  </div>
+</header>
+
+
+<div class="containBody">
+
+  <div class="main-body">
+    <div class="page-wrapper">
+
+      <div *ngIf="loaderShow" class="d-flex justify-content-center align-items-center w-100">
+        <div class="spinner-border text-success" style="width: 6rem; height: 6rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+
+      <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+          <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+              <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+              <span class="font-weight-bold">{{userInfo.firstname}} {{userInfo.secondname}}</span>
+              <span class="text-black-50">{{userInfo.email}}</span><span> </span></div>
+          </div>
+          <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Profile Settings</h4>
+              </div>
+
+              <div class="row mt-3">
+                <form [formGroup]="loginForm" (ngSubmit)="loginProjet()">
+                  <div class="col-md-12"><label class="labels">Current Password</label>
+                    <input type="text" formControlName="current_password" class="form-control" placeholder="current password" value="">
+                  </div>
+                  <div class="col-md-12"><label class="labels">New password</label>
+                    <input type="text" formControlName="new_password" class="form-control" placeholder="new password" value="">
+                  </div>
+                  <div class="col-md-12"><label class="labels">Confirm Password</label>
+                    <input type="text" formControlName="confirm_password" class="form-control" placeholder="confirm password" value="">
+                  </div>
+
+                  <h6 style="color:orange">{{password_error}}</h6>
+
+                  <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<footer id="footer">
+
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 footer-contact">
+          <h3>DIVCOM<span>.</span></h3>
+          <p>
+            <strong>Phone:</strong> +237 000 000 000<br>
+            <strong>Email:</strong> info@example.com<br>
+          </p>
+        </div>
+
+        <div class="col-lg-4 col-md-6 footer-newsletter">
+          <h4>Join Our Newsletter</h4>
+          <form action="" method="post">
+            <input type="email" name="email"><input type="submit" value="Subscribe">
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container d-md-flex py-4">
+
+    <div class="me-md-auto text-center text-md-start">
+      <div class="copyright">
+        &copy; Copyright <strong><span>2022 MINDEF</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </div>
+</footer>
+
